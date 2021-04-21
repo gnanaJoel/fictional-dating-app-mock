@@ -32,7 +32,17 @@ app.get("/api/profiles/:city?", (req, res) => {
 });
 
 // @TODO: Implement the API's POST endpoint
-app.post("/api/profiles", (req, res) => {});
+app.post("/api/profiles", (req, res) => {
+    console.log("I received this from the client:")
+    console.log(req.body)
+    const newDatingProfile = req.body
+    profilesList.push(newDatingProfile)
+    const message = {
+        msg:"Created",
+        inserted:newDatingProfile
+    }
+    res.status(201).send(message);
+});
 
 // @TODO: Impelement the API's DELETE endpoint
 app.delete("/api/profiles", (req, res) => {});
