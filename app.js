@@ -35,13 +35,22 @@ app.get("/api/profiles/:city?", (req, res) => {
 app.post("/api/profiles", (req, res) => {
     console.log("I received this from the client:")
     console.log(req.body)
-    const newDatingProfile = req.body
-    profilesList.push(newDatingProfile)
-    const message = {
-        msg:"Created",
-        inserted:newDatingProfile
+    if("name" in req.body && "age" in req.body && "occupation" in req.body && "city" in req.body){
+        const newDatingProfile = req.body
+        profilesList.push(newDatingProfile)
+        const message = {
+            msg:"Created",
+            inserted:newDatingProfile
+        }
+        res.status(201).send(message);
     }
-    res.status(201).send(message);
+    else{
+        const message = {
+            statusCode:500,
+            message:`Error when inserting User Dating Profile with name ${req.body.name} into data list.`
+        }
+        res.status(500).send(message)
+    }
 });
 
 // @TODO: Impelement the API's DELETE endpoint
