@@ -14,11 +14,14 @@ app.get("/", (req, res) => {
 // @TODO: Implement the API's GET endpoint
 app.get("/api/profiles/:city?", (req, res) => {
     // example of accessing a single person in the profilesList
-    if (req.params.city == null) {
+    if (req.params.city === undefined) {
         res.status(200).send(profilesList);
     } 
-    else if (req.params.city != null) {
-    } 
+    else if (req.params.city !== undefined) {
+        res.status(200).send(profilesList.filter((p) => {
+            return p.city === req.params.city;
+        }));
+    }
     else {
         const message = {
             statusCode:404,
