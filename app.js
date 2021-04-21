@@ -15,19 +15,13 @@ app.get("/", (req, res) => {
 app.get("/api/profiles/:city?", (req, res) => {
     // example of accessing a single person in the profilesList
     if (req.params.city === undefined) {
+        console.log(profilesList)
         res.status(200).send(profilesList);
     } 
-    else if (req.params.city !== undefined) {
+    else {
         res.status(200).send(profilesList.filter((p) => {
             return p.city === req.params.city;
         }));
-    }
-    else {
-        const message = {
-            statusCode:404,
-            message:"No Dating Profiles found in data list"
-        }
-        res.status(404).send(message);
     }
 });
 
@@ -42,6 +36,7 @@ app.post("/api/profiles", (req, res) => {
             msg:"Created",
             inserted:newDatingProfile
         }
+        console.log(message)
         res.status(201).send(message);
     }
     else{
@@ -49,12 +44,19 @@ app.post("/api/profiles", (req, res) => {
             statusCode:500,
             message:`Error when inserting User Dating Profile with name ${req.body.name} into data list.`
         }
+        console.log(message)
         res.status(500).send(message)
     }
 });
 
 // @TODO: Impelement the API's DELETE endpoint
-app.delete("/api/profiles", (req, res) => {});
+app.delete("/api/profiles", (req, res) => {
+    const message = {
+        msg:"Not Implemented"
+    }
+    console.log(message)
+    res.status(501).send(message)
+});
 
 // anyone who imports this file will be able to use the "app" variable
 module.exports = app;
